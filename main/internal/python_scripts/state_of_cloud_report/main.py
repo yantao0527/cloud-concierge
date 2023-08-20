@@ -115,15 +115,14 @@ def create_markdown_file(job_name: str, markdown_text_output_path):
         level=1, title="Resources Outside of Terraform Control", style="atx"
     )
 
-    if len(resource_count_dict_of_dfs) > 0:
+    if cost_estimates and len(resource_count_dict_of_dfs) > 0:
+        cost_by_provider_by_type_df = pd.DataFrame()
+        if cost_summary_dfs:
+            cost_by_provider_by_type_df = cost_summary_dfs["uncontrolled_cost_by_div_by_type_df"]
         markdown_file = create_new_resource_tabular_breakdowns_with_cost(
             markdown_file=markdown_file,
             resource_count_dict_of_dfs=resource_count_dict_of_dfs,
-            cost_by_provider_by_type_df=cost_summary_dfs[
-                "uncontrolled_cost_by_div_by_type_df"
-            ]
-            if cost_summary_dfs
-            else pd.DataFrame(),
+            cost_by_provider_by_type_df=cost_by_provider_by_type_df
         )
     else:
         markdown_file.new_line("No new resources found!")

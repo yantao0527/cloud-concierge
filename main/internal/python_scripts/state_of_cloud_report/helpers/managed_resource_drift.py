@@ -56,12 +56,12 @@ def create_managed_drift_markdown(
                 if len(instance_attribute_changes_df) == 0:
                     continue
                 actor = instance_attribute_changes_df["RecentActor"].unique()[0]
-                actor = "Not Known" if actor is "" else actor
+                actor = "Not Known" if actor == "" else actor
 
                 timestamp = instance_attribute_changes_df[
                     "RecentActionTimestamp"
                 ].unique()[0]
-                timestamp = "Not Known" if timestamp is "" else timestamp
+                timestamp = "Not Known" if timestamp == "" else timestamp
 
                 markdown_file.new_line(f"**Instance ID**: `{instance_id}`")
                 markdown_file.new_line("")
