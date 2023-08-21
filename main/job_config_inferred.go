@@ -178,10 +178,22 @@ func getAzureCredential(jobID string) (terraformValueObjects.Credential, error) 
 func getGoogleCredential(jobID string) (terraformValueObjects.Credential, error) {
 	if jobID == "empty" || jobID == "" {
 		// Load credentials locally
-		return "", nil
+		credentialBytes, err := os.ReadFile("./credentials/gcp/application_default_credentials.json")
+		if err != nil {
+			return "", fmt.Errorf("[os.ReadFile]%w", err)
+		}
+		return terraformValueObjects.Credential(credentialBytes), nil
 	}
 	// Load credentials with assumption that is running in Google
-	return "", nil
+	pathToCredentials := os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")
+	if pathToCredentials == "" {
+		return "", fmt.Errorf("missing GOOGLE_APPLICATION_CREDENTIALS environment variable: '%v'", pathToCredentials)
+	}
+	credentialBytes, err := os.ReadFile(pathToCredentials)
+	if err != nil {
+		return "", fmt.Errorf("[os.ReadFile]%w", err)
+	}
+	return terraformValueObjects.Credential(credentialBytes), nil
 }
 
 // getProviderFromProviderVersion determines the provider from the input provider version
