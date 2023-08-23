@@ -44,8 +44,8 @@ jobs:
           context: main/.
           push: true
           tags: |
-            dragondropcloud/cloud-concierge-dev:latest
-            dragondropcloud/cloud-concierge-dev:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloud-concierge-dev:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloud-concierge-dev:${{ github.ref_name }}
 
       # Prod release and image deployment to DockerHub
       - name: Checkout branch - prod
@@ -69,5 +69,5 @@ jobs:
           context: main/.
           push: true
           tags: |
-            dragondropcloud/cloud-concierge:latest
-            dragondropcloud/cloud-concierge:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloud-concierge:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cloud-concierge:${{ github.ref_name }}
