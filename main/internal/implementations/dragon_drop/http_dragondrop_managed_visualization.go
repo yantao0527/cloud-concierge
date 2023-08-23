@@ -42,9 +42,7 @@ func (c *HTTPDragonDropClient) SendCloudPerchData(ctx context.Context) error {
 	}
 	fmt.Printf("[cloud perch data] %+v\n", cloudPerchData)
 
-	// server returning 404, skip
-	// return c.sendRequest(ctx, cloudPerchData)
-	return nil
+	return c.sendRequest(ctx, cloudPerchData)
 }
 
 // sendRequest sends a request to the Dragon Drop API
