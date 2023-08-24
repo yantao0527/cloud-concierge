@@ -1,4 +1,4 @@
-awscli==1.27.135
+awscli==1.29.34
 mdutils==1.4.0
 numpy==1.25.0
 pandas==1.3.5

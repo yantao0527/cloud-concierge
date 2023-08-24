@@ -14,10 +14,16 @@ build:
 rmi:
 	docker rmi $(CONCIERGE_IMAGE)
 
-
 build-pytest:
 	docker build -f ./main/internal/python_scripts/pytest-dockerfile -t cloud-concierge-pytest:latest main
 
 credentials-aws:
 	-mkdir main/credentials
 	ln -s $(HOME)/.aws main/credentials/aws
+
+test:
+	cd main; go test ./...
+
+pytest:
+	cd main/internal; \
+		coverage run -m pytest --cov ./  --cov-branch --cov-report term-missing --cov-config=./python_scripts/tests/.coveragerc
