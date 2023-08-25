@@ -93,7 +93,7 @@ func (i *TerraformImportMigrationGenerator) writeResourcesMap(resourceImportMapJ
 	}
 
 	_ = os.MkdirAll("outputs", 0750)
-	err = os.WriteFile("outputs/resources-to-import-location.json", []byte(resourceImportMapJSON), 0640)
+	err = os.WriteFile("outputs/resources-to-import-location.json", []byte(resourceImportMapJSON), 0600)
 	if err != nil {
 		return fmt.Errorf("[map_resources][os.WriteFile(resources-to-import-location.json]%w", err)
 	}

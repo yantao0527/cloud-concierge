@@ -34,7 +34,7 @@ func NewGoogleScanner(credential terraformValueObjects.Credential, cliConfig Con
 func (gcpScan *GoogleScanner) Scan(project terraformValueObjects.Division, credential terraformValueObjects.Credential, options ...string) error {
 	_ = os.MkdirAll("credentials", 0750)
 
-	err := os.WriteFile("credentials/google.json", []byte(credential), 0640)
+	err := os.WriteFile("credentials/google.json", []byte(credential), 0600)
 
 	if err != nil {
 		return fmt.Errorf("[Scan] error saving credential file: %v", err)

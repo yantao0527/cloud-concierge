@@ -195,7 +195,7 @@ func (e *TerraformerExecutor) makeProviderVersionFile() error {
 		return err
 	}
 
-	err = os.WriteFile("current_cloud/main.tf", mainTF, 0640)
+	err = os.WriteFile("current_cloud/main.tf", mainTF, 0600)
 	if err != nil {
 		return fmt.Errorf("[make_provider_version_file][error saving file]%w", err)
 	}

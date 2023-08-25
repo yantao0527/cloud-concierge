@@ -59,7 +59,7 @@ func (h *hclCreate) WriteImportBlocks(uniqueID string, workspaceToDirectory map[
 		}
 		// outputting the file
 		outputPath := fmt.Sprintf("repo%vcloud-concierge/imports/%v_imports.tf", directory, uniqueID)
-		err = os.WriteFile(outputPath, importBlockFileBytes, 0640)
+		err = os.WriteFile(outputPath, importBlockFileBytes, 0600)
 		if err != nil {
 			return fmt.Errorf("[os.WriteFile] Error writing %v: %v", outputPath, err)
 		}

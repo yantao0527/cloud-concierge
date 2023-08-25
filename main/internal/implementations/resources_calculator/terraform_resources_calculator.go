@@ -123,7 +123,7 @@ func (c *TerraformResourcesCalculator) createNewResourceDocuments(ctx context.Co
 		return fmt.Errorf("[create_new_resource_documents][docu.ConvertNewResourcesToJSON] Error: %v", err)
 	}
 
-	err = os.WriteFile("outputs/new-resources-to-documents.json", resourceDocsJSONBytes, 0640)
+	err = os.WriteFile("outputs/new-resources-to-documents.json", resourceDocsJSONBytes, 0600)
 	if err != nil {
 		return fmt.Errorf("[create_new_resource_documents][write outputs/new-resources-to-documents.json] Error: %v", err)
 	}
@@ -143,7 +143,7 @@ func (c *TerraformResourcesCalculator) createNewResourceDocuments(ctx context.Co
 		return fmt.Errorf("[json.MarshalIndent]%v", err)
 	}
 
-	err = os.WriteFile("outputs/new-resources.json", newResourceDataJSON, 0640)
+	err = os.WriteFile("outputs/new-resources.json", newResourceDataJSON, 0600)
 	if err != nil {
 		return fmt.Errorf("[create_new_resource_documents][write outputs/new-resources.json] Error: %v", err)
 	}
@@ -254,7 +254,7 @@ func (c *TerraformResourcesCalculator) createWorkspaceDocuments(ctx context.Cont
 		return "[createWorkspacesToDocuments] %v", err
 	}
 
-	err = os.WriteFile("outputs/workspace-to-documents.json", outputBytes, 0640)
+	err = os.WriteFile("outputs/workspace-to-documents.json", outputBytes, 0600)
 
 	if err != nil {
 		return "[createWorkspacesToDocuments] %v", err

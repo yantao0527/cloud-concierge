@@ -171,12 +171,12 @@ func (w *TerraformResourceWriter) writeDummyFile(ctx context.Context, workspaceT
 
 		newFilePath := fmt.Sprintf("repo%vcloud-concierge/placeholder/dragondrop_placeholder.txt", directory)
 
-		err = os.WriteFile(newFilePath, []byte("Placeholder file for opening a PR"), 0640)
+		err = os.WriteFile(newFilePath, []byte("Placeholder file for opening a PR"), 0600)
 		if err != nil {
 			return fmt.Errorf("error writing the placeholder file %v", err)
 		}
 
-		err = os.WriteFile("outputs/new-resources-to-documents.json", []byte("{}"), 0640)
+		err = os.WriteFile("outputs/new-resources-to-documents.json", []byte("{}"), 0600)
 		if err != nil {
 			return fmt.Errorf("error writing new resources empty JSON file: %v", err)
 		}

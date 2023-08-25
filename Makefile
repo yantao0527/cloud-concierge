@@ -33,3 +33,9 @@ clean-main:
 	-rm -rf main/state_files
 	-rm -rf main/current_cloud
 	-rm -rf main/outputs
+
+ci-lint-install:
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(shell go env GOPATH)/bin v1.54.2
+
+ci-lint:
+	cd main; golangci-lint run

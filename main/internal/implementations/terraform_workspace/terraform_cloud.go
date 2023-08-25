@@ -156,7 +156,7 @@ func (c *TerraformCloud) getWorkspaceState(ctx context.Context, workspaceName st
 	_ = os.MkdirAll("state_files", 0750)
 	fileOutPath := fmt.Sprintf("state_files/%v.json", workspaceName)
 
-	err = os.WriteFile(fileOutPath, jsonResponseBytes, 0640)
+	err = os.WriteFile(fileOutPath, jsonResponseBytes, 0600)
 	if err != nil {
 		return fmt.Errorf("[get_workspace_state][error saving state file to memory]%w", err)
 	}

@@ -70,7 +70,7 @@ func (h *hclCreate) CreateTFMigrateConfiguration(workspaceToDirectory map[string
 			return fmt.Errorf("[h.individualTFMigrateConfig] %v", err)
 		}
 
-		err = os.WriteFile(newFilePath, currentTfMigrateConfig, 0640)
+		err = os.WriteFile(newFilePath, currentTfMigrateConfig, 0600)
 		if err != nil {
 			return fmt.Errorf("[os.writeFile] %v", err)
 		}
