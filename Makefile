@@ -27,3 +27,9 @@ test:
 pytest:
 	cd main/internal; \
 		coverage run -m pytest --cov ./  --cov-branch --cov-report term-missing --cov-config=./python_scripts/tests/.coveragerc
+
+clean-main:
+	-rm -rf main/repo
+	-rm -rf main/state_files
+	-rm -rf main/current_cloud
+	-rm -rf main/outputs

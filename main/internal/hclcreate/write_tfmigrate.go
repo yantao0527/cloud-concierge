@@ -58,7 +58,7 @@ func (h *hclCreate) CreateTFMigrate(uniqueID string, workspaceToDirectory map[st
 // CreateTFMigrateConfiguration saves HCL which defines TFMigrate configuration.
 func (h *hclCreate) CreateTFMigrateConfiguration(workspaceToDirectory map[string]string) error {
 	for workspace, directory := range workspaceToDirectory {
-		err := os.MkdirAll(fmt.Sprintf("repo%vcloud-concierge/tfmigrate", directory), 0400)
+		err := os.MkdirAll(fmt.Sprintf("repo%vcloud-concierge/tfmigrate", directory), 0750)
 		if err != nil {
 			return fmt.Errorf("[os.MkdirAll] cloud-concierge/tfmigrate within %v: %v", directory, err)
 		}
@@ -70,7 +70,7 @@ func (h *hclCreate) CreateTFMigrateConfiguration(workspaceToDirectory map[string
 			return fmt.Errorf("[h.individualTFMigrateConfig] %v", err)
 		}
 
-		err = os.WriteFile(newFilePath, currentTfMigrateConfig, 0400)
+		err = os.WriteFile(newFilePath, currentTfMigrateConfig, 0640)
 		if err != nil {
 			return fmt.Errorf("[os.writeFile] %v", err)
 		}

@@ -190,12 +190,12 @@ func (e *TerraformerExecutor) makeProviderVersionFile() error {
 		return fmt.Errorf("[make_provider_version_file][error in creating main terraform file]%w", err)
 	}
 
-	err = os.MkdirAll("current_cloud", 0660)
+	err = os.MkdirAll("current_cloud", 0750)
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile("current_cloud/main.tf", mainTF, 0400)
+	err = os.WriteFile("current_cloud/main.tf", mainTF, 0640)
 	if err != nil {
 		return fmt.Errorf("[make_provider_version_file][error saving file]%w", err)
 	}

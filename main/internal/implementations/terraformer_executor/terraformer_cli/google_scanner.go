@@ -32,9 +32,9 @@ func NewGoogleScanner(credential terraformValueObjects.Credential, cliConfig Con
 
 // Scan uses the TerraformerCLI interface to scan a given division's cloud environment
 func (gcpScan *GoogleScanner) Scan(project terraformValueObjects.Division, credential terraformValueObjects.Credential, options ...string) error {
-	_ = os.MkdirAll("credentials", 0660)
+	_ = os.MkdirAll("credentials", 0750)
 
-	err := os.WriteFile("credentials/google.json", []byte(credential), 0400)
+	err := os.WriteFile("credentials/google.json", []byte(credential), 0640)
 
 	if err != nil {
 		return fmt.Errorf("[Scan] error saving credential file: %v", err)
