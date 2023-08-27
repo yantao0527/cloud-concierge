@@ -134,6 +134,11 @@ func (e *TerraformerExecutor) Execute(ctx context.Context) error {
 		return fmt.Errorf("[terraformer_executor][set_up][error informing cloud environment scanned]%w", err)
 	}
 
+	err = e.endTerraform()
+	if err != nil {
+		return fmt.Errorf("[terraformer_executor][set_up][error ending terraform]%w", err)
+	}
+
 	return nil
 }
 
@@ -153,6 +158,16 @@ func (e *TerraformerExecutor) initializeTerraform() error {
 		return fmt.Errorf("[initialize_terraform][error in running 'terraform init': %s]%w", out.String(), err)
 	}
 	fmt.Printf("%v", out.String())
+
+	return nil
+}
+
+// endTerraform revert working directory.
+func (e *TerraformerExecutor) endTerraform() error {
+	err := os.Chdir("..")
+	if err != nil {
+		return fmt.Errorf("[end_terraform][error changing working directory]%w", err)
+	}
 
 	return nil
 }

@@ -29,5 +29,9 @@ main/internal/implementations/dragon_drop/current_cloud/
 main/internal/implementations/dragon_drop/outputs/
 main/internal/implementations/dragon_drop/repo/
 
-# ignore credentials
+# ignore local debug file
 main/credentials/
+main/repo/
+main/current_cloud/
+main/outputs/
+main/state_files/

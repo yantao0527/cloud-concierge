@@ -22,7 +22,7 @@ func (i *TerraformImportMigrationGenerator) GenericResourcesToImportLocation(pro
 
 // readTerraformerStateFile reads the terraformer terraform.tfstate file
 func (i *TerraformImportMigrationGenerator) readTerraformerStateFile() ([]byte, error) {
-	return i.readTerraformerFileByName("terraform.tfstate")
+	return i.readTerraformerFileByName("current_cloud/terraform.tfstate")
 }
 
 // readTerraformerFileByName reads files from /current cloud directory specifying its name

@@ -39,3 +39,17 @@ ci-lint-install:
 
 ci-lint:
 	cd main; golangci-lint run
+
+tools-install:
+	docker cp concierge:/usr/local/bin/tfswitch /tmp/tfswitch
+	docker cp concierge:/usr/local/bin/terraformer /tmp/terraformer
+	docker cp concierge:/usr/local/bin/tfsec /tmp/tfsec
+	sudo mv /tmp/tfswitch /usr/local/bin/tfswitch
+	sudo mv /tmp/terraformer /usr/local/bin/terraformer
+	sudo mv /tmp/tfsec /usr/local/bin/tfsec
+	sudo chown root:root /usr/local/bin/tfswitch
+	sudo chown root:root /usr/local/bin/terraformer
+	sudo chown root:root /usr/local/bin/tfsec
+
+python-link:
+	sudo ln -s $(PWD)/main/internal/python_scripts /python_scripts

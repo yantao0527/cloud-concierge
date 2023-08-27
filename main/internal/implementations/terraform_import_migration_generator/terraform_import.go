@@ -3,7 +3,6 @@ package terraformImportMigrationGenerator
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/Jeffail/gabs/v2"
@@ -70,30 +69,30 @@ func (i *TerraformImportMigrationGenerator) Execute(ctx context.Context) error {
 
 // writeResourcesMap writes a json file for the resource Import Map.
 func (i *TerraformImportMigrationGenerator) writeResourcesMap(resourceImportMapJSON string) error {
-	err := os.Chdir("/")
-	if err != nil {
-		return fmt.Errorf("[map_resources][os.Chdir(/)]%w", err)
-	}
+	// err := os.Chdir("/")
+	// if err != nil {
+	// 	return fmt.Errorf("[map_resources][os.Chdir(/)]%w", err)
+	// }
 
-	// Check to see if running locally and move into the docker volume directory if necessary
-	files, err := ioutil.ReadDir("./")
-	if err != nil {
-		return fmt.Errorf("[map_resources][ioutil.ReadDir('./')]%w", err)
-	}
+	// // Check to see if running locally and move into the docker volume directory if necessary
+	// files, err := ioutil.ReadDir("./")
+	// if err != nil {
+	// 	return fmt.Errorf("[map_resources][ioutil.ReadDir('./')]%w", err)
+	// }
 
-	for _, f := range files {
-		fmt.Println(f.Name())
-		if f.Name() == "main" {
-			err = os.Chdir("/main")
-			if err != nil {
-				return fmt.Errorf("[map_resources][os.Chdir(/main)]%w", err)
-			}
-			break
-		}
-	}
+	// for _, f := range files {
+	// 	fmt.Println(f.Name())
+	// 	if f.Name() == "main" {
+	// 		err = os.Chdir("/main")
+	// 		if err != nil {
+	// 			return fmt.Errorf("[map_resources][os.Chdir(/main)]%w", err)
+	// 		}
+	// 		break
+	// 	}
+	// }
 
 	_ = os.MkdirAll("outputs", 0750)
-	err = os.WriteFile("outputs/resources-to-import-location.json", []byte(resourceImportMapJSON), 0600)
+	err := os.WriteFile("outputs/resources-to-import-location.json", []byte(resourceImportMapJSON), 0600)
 	if err != nil {
 		return fmt.Errorf("[map_resources][os.WriteFile(resources-to-import-location.json]%w", err)
 	}
