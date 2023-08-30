@@ -1,11 +1,28 @@
 # cloud-concierge
 <p align="center">
-<img width="500" src=./images/cloud-concierge-logo.png>
+<img width="375" src=./images/cloud-concierge-logo.png>
 </p>
-<h2 align="center">
+
+<p align = "center">
+<a href="https://goreportcard.com/report/github.com/dragondrop-cloud/cloud-concierge/main" alt="Go Report">
+   <img src="https://img.shields.io/badge/Go_Report-A+-green" />
+</a>
+
+<a href="https://hub.docker.com/r/dragondropcloud/cloud-concierge/tags" alt="Latest Docker Version">
+   <img src="https://img.shields.io/badge/docker-v0.1.1-blue" />
+</a>
+
+<a href="https://hub.docker.com/r/dragondropcloud/cloud-concierge" alt="Total Downloads">
+   <img src="https://img.shields.io/badge/downloads-4.2k-maroon" />
+</a>
+
+<a href="https://cloud-concierge.slack.com/join/shared_invite/zt-1xx3sqsb6-cekIXs2whccZvbU81Xn5qg#/shared-invite/email" alt="Slack">
+<img src="https://img.shields.io/badge/slack-Join_Us-blueviolet" />
+</a>
+<h3 align="center">
 <a href="https://github.com/dragondrop-cloud/cloud-concierge-example/pull/2" target="_blank">Example Output</a> |
 <a href="https://docs.cloudconcierge.io" target="_blank">Docs</a>
-</h2>
+</h3>
 
 ## Why cloud-concierge?
 cloud-concierge is a container that integrates with your existing Terraform management stack.
@@ -35,7 +52,7 @@ when wanting to self-host runners or access the most desired features like drift
 ## Quick Start
 ### All Cloud Provider Pre-requisites
 0) Obtain an API token at https://app.dragondrop.cloud. We only collect data on when a cloud-concierge starts up (this can be verified here).
-1) Configure an environment variable file (use one of our templates to get started) to control the specifics of cloud-concierge's coverage.
+1) Configure an environment variable file (use one of our [templates](https://github.com/dragondrop-cloud/cloud-concierge/tree/dev/examples/environments/) to get started) to control the specifics of cloud-concierge's coverage.
 2) Make sure you have Docker available on your local machine.
 
 ### AWS Quickstart
