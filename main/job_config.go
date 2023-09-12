@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dragondrop-cloud/cloud-concierge/main/internal/hclcreate"
+	"github.com/sirupsen/logrus"
 
+	"github.com/dragondrop-cloud/cloud-concierge/main/internal/hclcreate"
 	costEstimation "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/cost_estimation"
 	dragonDrop "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/dragon_drop"
 	identifyCloudActors "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/identify_cloud_actors"
 	terraformImportMigrationGenerator "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/terraform_import_migration_generator"
+	driftDetector "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/terraform_managed_resources_drift_detector/drift_detector"
 	terraformValueObjects "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/terraform_value_objects"
 	terraformWorkspace "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/terraform_workspace"
 	terraformerCli "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/terraformer_executor/terraformer_cli"
@@ -46,6 +48,10 @@ type JobConfig struct {
 	// MigrationHistoryStorage is a map containing information needed for specifying tfmigrate
 	// history storage appropriately.
 	MigrationHistoryStorage hclcreate.MigrationHistory
+
+	// NLPEndpoint is the endpoint for the NLP service used by cloud-concierge to match uncontrolled resources
+	// to the right state files.
+	NLPEndpoint string `default:"https://us-east4-dragondrop-prod.cloudfunctions.net/nlpengine-endpoint-prod"`
 
 	// TerraformVersion is the version of Terraform used.
 	TerraformVersion string `required:"true"`
@@ -91,6 +97,8 @@ type JobConfig struct {
 
 // validateJobConfig validates the JobConfig struct with the values as expected.
 func validateJobConfig(config JobConfig) error {
+	logrus.Debugf("Validating job config: %+v", config)
+
 	if strings.ToLower(config.StateBackend) == "terraformcloud" {
 		if config.TerraformCloudOrganization == "" {
 			return fmt.Errorf("[terraform cloud organization is required when using terraform cloud as state backend]")
@@ -107,6 +115,7 @@ func (c JobConfig) getDragonDropConfig() dragonDrop.HTTPDragonDropClientConfig {
 	return dragonDrop.HTTPDragonDropClientConfig{
 		APIPath:              c.APIPath,
 		JobID:                c.JobID,
+		NLPEndpoint:          c.NLPEndpoint,
 		OrgToken:             c.OrgToken,
 		WorkspaceDirectories: c.WorkspaceDirectories,
 	}
@@ -174,5 +183,12 @@ func (c JobConfig) getIdentifyCloudActorsConfig() identifyCloudActors.Config {
 	return identifyCloudActors.Config{
 		CloudCredential: c.CloudCredential,
 		Division:        c.Division,
+	}
+}
+
+func (c JobConfig) getManagedResourceDriftDetectorConfig() driftDetector.ManagedResourceDriftDetectorConfig {
+	return driftDetector.ManagedResourceDriftDetectorConfig{
+		ResourcesWhiteList: c.ResourcesWhiteList,
+		ResourcesBlackList: c.ResourcesBlackList,
 	}
 }

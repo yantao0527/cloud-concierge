@@ -111,8 +111,8 @@ func parseAWSCredentialValues(credentialBytes []byte) (terraformValueObjects.Cre
 	// [default]
 	// aws_access_key_id = <access_key_id>
 	// aws_secret_access_key = <secret_access_key>
-	re := regexp.MustCompile(`\naws_access_key_id = (.*)\naws_secret_access_key = (.*)`)
-	credentialValues := re.FindStringSubmatch(string(credentialBytes))
+	credentialValues := searchAwsAccess(credentialBytes)
+
 	AWSCredentialLocal := awsCredentialLocal{
 		AwsAccessKeyID:     strings.Replace(credentialValues[1], "\r", "", -1),
 		AwsSecretAccessKey: strings.Replace(credentialValues[2], "\r", "", -1),
@@ -122,6 +122,11 @@ func parseAWSCredentialValues(credentialBytes []byte) (terraformValueObjects.Cre
 		return "", fmt.Errorf("[json.Marshal][%w]", err)
 	}
 	return terraformValueObjects.Credential(credential), nil
+}
+
+func searchAwsAccess(credentials []byte) []string {
+	re := regexp.MustCompile(`\naws_access_key_id\s?=\s?(.*)\naws_secret_access_key\s?=\s?(.*)`)
+	return re.FindStringSubmatch(string(credentials))
 }
 
 // awsCredentialLocal is the struct that represents an AWS credential configured
