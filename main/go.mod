@@ -8,6 +8,7 @@ require (
 	github.com/Jeffail/gabs/v2 v2.7.0
 	github.com/atsushinee/go-markdown-generator v0.0.0-20191121114853-83f9e1f68504
 	github.com/aws/aws-sdk-go v1.45.1
+	github.com/fatih/color v1.15.0
 	github.com/go-git/go-git/v5 v5.8.1
 	github.com/google/go-github/v45 v45.2.0
 	github.com/hashicorp/hcl/v2 v2.18.0
@@ -47,7 +48,9 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-ieproxy v0.0.11 // indirect
+	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

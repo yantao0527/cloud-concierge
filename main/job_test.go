@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	resourcesCalculator "github.com/dragondrop-cloud/cloud-concierge/main/internal/implementations/resources_calculator"
 	. "github.com/dragondrop-cloud/cloud-concierge/main/internal/interfaces"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestAuthorize_Success(t *testing.T) {
@@ -28,9 +29,10 @@ func TestAuthorize_Success(t *testing.T) {
 	// When
 	dragonDrop.On("CheckLoggerAndToken", ctx).Return(nil)
 	dragonDrop.On("InformStarted", ctx).Return(nil)
-	dragonDrop.On("AuthorizeJob", ctx).Return("xyz", nil)
-	dragonDrop.On("AuthorizeManagedJob", ctx).Return("xyz", "xyz", nil)
+	dragonDrop.On("AuthorizeJob", ctx).Return("xyz", "abc", nil)
+	dragonDrop.On("AuthorizeManagedJob", ctx).Return("xyz", "xyz", "abc", nil)
 	costEstimator.On("SetInfracostAPIToken", "xyz").Return()
+	vcs.On("SetToken", "abc").Return()
 
 	job := Job{
 		costEstimator:                     costEstimator,
@@ -151,7 +153,7 @@ func TestNotCreateJob_UnauthorizedJob(t *testing.T) {
 	// When
 	dragonDrop.On("CheckLoggerAndToken", ctx).Return(nil)
 	dragonDrop.On("InformStarted", ctx).Return(nil)
-	dragonDrop.On("AuthorizeManagedJob", ctx).Return("xyz", "name", authJobErr)
+	dragonDrop.On("AuthorizeManagedJob", ctx).Return("xyz", "name", "abc", authJobErr)
 
 	job := Job{
 		costEstimator:                     costEstimator,
@@ -202,9 +204,10 @@ func createValidJob(t *testing.T) (*JobDependenciesMock, *Job) {
 	ctx := context.Background()
 	dragonDrop.On("CheckLoggerAndToken", ctx).Return(nil)
 	dragonDrop.On("InformStarted", ctx).Return(nil)
-	dragonDrop.On("AuthorizeJob", ctx).Return("xyz", nil)
+	dragonDrop.On("AuthorizeJob", ctx).Return("xyz", "abc", nil)
 	dragonDrop.On("InformRepositoryCloned", ctx).Return(nil)
 	costEstimator.On("SetInfracostAPIToken", "xyz").Return()
+	vcs.On("SetToken", "abc").Return()
 
 	job := &Job{
 		costEstimator:                     costEstimator,
